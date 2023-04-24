@@ -1,0 +1,71 @@
+{extends file="../templates/main.html"}
+
+
+{block name=content}
+
+<h2> Kalkulator delty </h2>
+
+<form class="pure-form pure-form-stacked" action = "{$config->app_url}/files/calc.php" method="post">
+
+    Proszę wpisać wartości a, b, c do obliczenia delty: <br />
+    <fieldset>
+    <label for="id_a">Liczba a:</label>
+    <input id="id_a" type="text" name="a" placeholder="wartość a" value="{$form->a}" /><br />
+
+    <label for="id_b">Liczba b:</label>
+    <input id="id_b" type="text" name="b" placeholder="wartość b" value="{$form->b}" /><br />
+    
+    <label for="id_c">Liczba c:</label>
+    <input id="id_c" type="text" name="c" placeholder="wartość c" value="{$form->c}" /><br />
+    
+    </fieldset>
+    <button type="submit" class="pure-button pure-button-primary">Oblicz deltę</button>
+</form>
+
+<div class="messages">
+
+{if $msg->isError()} 
+    <h4>Wystąpiły błędy: </h4>
+	<ol class="err">
+     {foreach $msg->getErrors() as $err}
+     {strip}
+         <li>{$err}</li>
+     {/strip}
+     {/foreach}
+    </ol>
+{/if}
+
+
+{if $msg->isInfo()}
+	<h4>Informacje: </h4>
+	<ol class="inf">
+	{foreach $msg->getInfos() as $inf}
+	{strip}
+		<li>{$inf}</li>
+	{/strip}
+	{/foreach}
+	</ol>
+{/if}
+
+{if isset($result->delta)}
+    <h4>Delta:</h4>
+    <p class="res">
+    {$result->delta}
+    </p>
+{/if}
+{if isset($result->x1)}
+    <h4>Pierwsze miejsce zerowe:</h4>
+    <p class="res">
+    {$result->x1}
+    </p>
+{/if}
+{if isset($result->x2)}
+    <h4>Drugie miejsce zerowe:</h4>
+    <p class="res">
+    {$result->x2}
+    </p>
+{/if}
+
+</div>
+{/block}
+
